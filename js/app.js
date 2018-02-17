@@ -21,28 +21,31 @@ var agent = new Vue({
     }
   },
   methods: {
-    getData: function(){
-      axios.get("https://api.github.com/users/"+this.nom+"/repos")
-        .then((response) => {
+    getData: _.debounce(
+      function(){
+        axios.get("https://api.github.com/users/"+this.nom+"/repos")
+          .then((response) => {
 
-          var tableau = document.getElementById('tableau')
+            var tableau = document.getElementById('tableau')
 
-          if (tableau.style.display == "")
-              tableau.style.display = "inline-block"
+            if (tableau.style.display == "")
+                tableau.style.display = "inline-block"
 
-          for(var i = 0; i < response.data.length; i ++ )
-          {
-            document.getElementById('corps').innerHTML += '' +
-            '<tr class=" color' + i%2 + '">' +
-              '<td>' + response.data[i].id          + '</td>' +
-              '<td>' + response.data[i].name        + '</td>' +
-              '<td>' + response.data[i].created_at  + '</td>' +
-              '<td>' + response.data[i].description + '</td>' +
-              '<td>' + response.data[i].clone_url   + '</td>' +
-            '</tr>'
-            // '<ligne id="' +response.data[i].id+ '" name="' +response.data[i].name+ '" created_at="' +response.data[i].created_at+ '" description="' +response.data[i].description+ '" clone_url="' +response.data[i].clone_url+ '"></ligne>'
-          }
-        })
-    }
+            for(var i = 0; i < response.data.length; i ++ )
+            {
+              document.getElementById('corps').innerHTML += '' +
+              '<tr class=" color' + i%2 + '">' +
+                '<td>' + response.data[i].id          + '</td>' +
+                '<td>' + response.data[i].name        + '</td>' +
+                '<td>' + response.data[i].created_at  + '</td>' +
+                '<td>' + response.data[i].description + '</td>' +
+                '<td>' + response.data[i].clone_url   + '</td>' +
+              '</tr>'
+              // '<ligne id="' +response.data[i].id+ '" name="' +response.data[i].name+ '" created_at="' +response.data[i].created_at+ '" description="' +response.data[i].description+ '" clone_url="' +response.data[i].clone_url+ '"></ligne>'
+            }
+          })
+      },
+      500
+    )
   }
 })
