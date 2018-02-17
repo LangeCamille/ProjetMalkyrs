@@ -1,25 +1,15 @@
-var app1 = new Vue({
-  el: '#app',
+var agent = new Vue({
+  el: '#agent',
   data: {
-    message: 'Hello Vue!'
+    nom: '',
+    texte: 'J\'attend le nom de l\'agent'
   },
-  methods: {
-    echange: function(){
-      var tab = this.message.split(' ')
-      return tab[1] + " " + tab[0]
-    }
-  }
-})
-var test = new Vue({
-  el: '#test',
-  data: {
-    message: 'test',
-    hide: true,
-    color: 'red'
-  },
-  methods: {
-    coloriage: function(){
-      return "color:"+this.color+";"
+  watch: {
+    nom: function(newText, oldText) {
+      if(this.nom == '')
+        this.texte = 'J\'attend le nom de l\'agent'
+      else
+        this.texte = "le nom de votre agent est : " + this.nom
     }
   }
 })
