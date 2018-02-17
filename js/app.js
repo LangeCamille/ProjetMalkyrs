@@ -17,9 +17,14 @@ var agent = new Vue({
   },
   methods: {
     getData: function(){
-      axios.get("https://api.github.com/users/"+this.nom).then((response) => {
-        console.log(response.data.id)
-      })
+      axios.get("https://api.github.com/users/"+this.nom+"/repos")
+        .then((response) => {
+          console.log(response.data);
+          for(var i = 0; i < response.data.length; i ++ )
+          {
+            console.log("repos name : " + response.data[i].name)
+          }
+        })
     }
   }
 })
