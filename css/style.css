@@ -1,0 +1,30 @@
+#tableau
+{
+  display: none;
+}
+
+.color0
+{
+  background-color: #b3b3cc;
+}
+
+.color1
+{
+  background-color: #e0e0eb;
+}
+
+table
+{
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+thead, tbody, th, td
+{
+  border: 1px solid black;
+}
+
+h1
+{
+  text-align: center;
+}

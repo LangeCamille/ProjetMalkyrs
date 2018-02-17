@@ -2,14 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
     <title>Malkyrs Surveillance</title>
   </head>
   <body>
     <h1>Identification des agents ennemis</h1>
     <div id="agent">
       <p>Saisissez le nom d'un agent</p>
-      <input v-model="nom"/>
-      <p>{{ texte }}</p>
+      <p><input v-model="nom"/></p>
+      <table id="tableau">
+        Dossier(s) de {{ nom }}
+        <thead>
+          <th>Id</th>
+          <th>Nom</th>
+          <th>Créé le</th>
+          <th>Description</th>
+          <th>Clone URL</th>
+        </thead>
+        <tbody id="corps">
+
+        </tbody>
+      </table>
     </div>
 
     <script type="text/javascript" src="js/vue.js"></script>
