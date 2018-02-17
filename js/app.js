@@ -47,6 +47,7 @@ var agent = new Vue({
           })
         }
         else
+        // BUG: réécrire le tableau tel qu'il est au départ
           document.getElementById('corps').innerHTML = ""
       },
       500
