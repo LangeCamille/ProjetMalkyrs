@@ -1,7 +1,3 @@
-// Vue.component('ligne', {
-//   props: ['id','name','created_at','description','clone_url'],
-  // template: '<tr><td>{{ id }}</td><td>{{ name }}</td><td>{{ created_at }}</td><td>{{ description }}</td><td>{{ clone_url }}</td></tr>'
-// })
 const store = new Vuex.Store({
   state: {
     lignes: [null],
@@ -61,6 +57,8 @@ const agent = new Vue({
   methods: {
     viderTableau(){
       store.commit("viderTableau")
+      if (document.getElementById('head'))
+        document.getElementById('head').classList.add("cacher")
     },
     getData: _.debounce(
       function()
@@ -71,6 +69,7 @@ const agent = new Vue({
           axios.get("https://api.github.com/users/"+this.nom+"/repos")
           .then((response) =>
           {
+            this.viderTableau()
             vue.cacher = false
 
             for(var i = 0; i < response.data.length; i ++ )
@@ -82,18 +81,15 @@ const agent = new Vue({
                             response.data[i].updated_at,
                             response.data[i].description,
                             response.data[i].clone_url)
-              // '<ligne id="' +response.data[i].id+ '" name="' +response.data[i].name+ '" created_at="' +response.data[i].created_at+ '" description="' +response.data[i].description+ '" clone_url="' +response.data[i].clone_url+ '"></ligne>'
             }
           })
           .catch(function () {
             console.log("Erreur ! Impossible d'accéder à l'API.")
             vue.cacher = true
-            vue.viderTableau()
           })
         }
         else
         {
-          this.viderTableau()
           this.cacher = true
         }
       },
@@ -165,6 +161,11 @@ const agent = new Vue({
           ligne.classList.remove("cacher")
         }
       }
+    },
+    resetNom: function(){
+      this.nom = ''
+      this.viderTableau()
+      this.cacher = true
     }
   }
 })

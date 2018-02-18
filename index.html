@@ -14,11 +14,14 @@
     <h1>Identification des agents ennemis</h1>
     <div id="agent">
       <p>Saisissez le nom d'un agent</p>
-      <p><input v-model="nom"/></p>
+      <p>
+        <input v-model="nom"/>
+        <button type="button" v-on:click="resetNom">Reset</button>
+      </p>
       <p>{{ texte }}</p>
       <div v-if="!cacher">
         <p>Dossier(s) de {{ nom }}</p>
-        <table>
+        <table v-if="store.state.lignes.length > 0">
           <tr id="head">
             <th v-for="value in store.state.head">{{ value }}</th>
           </tr>
