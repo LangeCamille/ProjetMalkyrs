@@ -44,7 +44,8 @@ const agent = new Vue({
     nom: '',
     cacher: true,
     texte: 'J\'attend le nom de l\'agent',
-    actifCheck: false
+    actifCheck: false,
+    recentCheck: false
   },
   watch: {
     nom: function(newText, oldText) {
@@ -110,7 +111,26 @@ const agent = new Vue({
       store.commit('addLigne',ligne)
     },
     recent: function(){
+      if (this.recentCheck)
+        this.recentCheck = false
+      else
+        this.recentCheck = true
 
+      var date = new Date();
+
+      for (var i = 1; i < store.state.lignes.length; i++) {
+        var temp = this.store.state.lignes[i].mAj.split("/")
+        temp = parseInt(temp[1].substr(1,temp[1].length))
+        var ligne = document.getElementById(i)
+        if (this.recentCheck) {
+          ligne.classList.add("cacher")
+          if (temp >= date.getMonth()-1) {
+            ligne.classList.remove("cacher")
+          }
+        }
+        else
+          ligne.classList.remove("cacher")
+      }
     },
     actif: function(){
       if (this.actifCheck)
