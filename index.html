@@ -16,20 +16,33 @@
       <p>Saisissez le nom d'un agent</p>
       <p><input v-model="nom"/></p>
       <p>{{ texte }}</p>
-      <p>Dossier(s) de {{ nom }}</p>
-      <table v-if="!cacher">
-        <tr>
-          <th v-for="value in store.state.head">{{ value }}</th>
-        </tr>
-        <tr v-for="(ligne, index) in store.state.lignes">
-          <template v-if="index%2 === 0">
-            <td v-for="value in ligne" class="color0">{{ value }}</td>
-          </template>
-          <template v-else>
-            <td v-for="value in ligne" class="color1">{{ value }}</td>
-          </template>
-        </tr>
-      </table>
+      <div v-if="!cacher">
+        <p>Dossier(s) de {{ nom }}</p>
+        <table >
+          <tr>
+            <th v-for="value in store.state.head">{{ value }}</th>
+          </tr>
+          <tr v-for="(ligne, index) in store.state.lignes">
+            <template v-if="index%2 === 0">
+              <td v-for="value in ligne" class="color0">{{ value }}</td>
+            </template>
+            <template v-else>
+              <td v-for="value in ligne" class="color1">{{ value }}</td>
+            </template>
+          </tr>
+        </table>
+        <div>
+          <h4>Filtres : </h4>
+          <p>
+            <label for="recent">Dossiers récent : </label>
+            <input type="checkbox" name="recent">
+          </p>
+          <p>
+            <label for="actif">Dossiers actifs : </label>
+            <input type="checkbox" name="actif">
+          </p>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="js/app.js"></script>
   </body>

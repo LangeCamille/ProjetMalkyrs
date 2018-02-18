@@ -18,10 +18,12 @@ const store = new Vuex.Store({
   mutations: {
     addLigne(state, ligne)
     {
+      var newDate = ligne.date.split("T")
+      newDate = newDate[0].split("-")
       state.lignes[state.lignes.length] = {
         id: ligne.id,
         name: ligne.name,
-        date: ligne.date,
+        date: newDate[2]+"/"+newDate[1]+"/"+newDate[0], // BUG: faire un traitement pour rendre la date potable
         desc: ligne.desc,
         url: ligne.url
       }
@@ -39,7 +41,6 @@ const agent = new Vue({
     store,
     nom: '',
     cacher: true,
-    ancienNom: '',
     texte: 'J\'attend le nom de l\'agent'
   },
   watch: {
@@ -82,6 +83,7 @@ const agent = new Vue({
           .catch(function () {
             console.log("Erreur ! Impossible d'accéder à l'API.")
             vue.cacher = true
+            vue.viderTableau()
           })
         }
         else
