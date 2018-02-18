@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
     <title>Malkyrs Surveillance</title>
   </head>
   <body>
@@ -10,24 +15,14 @@
     <div id="agent">
       <p>Saisissez le nom d'un agent</p>
       <p><input v-model="nom"/></p>
+      <p>{{ texte }}</p>
       <p>Dossier(s) de {{ nom }}</p>
       <table id="tableau">
-        <thead>
-          <th>Id</th>
-          <th>Nom</th>
-          <th>Créé le</th>
-          <th>Description</th>
-          <th>Clone URL</th>
-        </thead>
-        <tbody id="corps">
-
-        </tbody>
+        <tr v-for="ligne in store.state.lignes">
+          <td v-for="value in ligne">{{ value }}</td>
+        </tr>
       </table>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="https://unpkg.com/vuex@3.0.1/dist/vuex.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>

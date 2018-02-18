@@ -2,36 +2,42 @@
 //   props: ['id','name','created_at','description','clone_url'],
   // template: '<tr><td>{{ id }}</td><td>{{ name }}</td><td>{{ created_at }}</td><td>{{ description }}</td><td>{{ clone_url }}</td></tr>'
 // })
-// const dataLigne = new Vuex.store({
-  // state: {
-    // id: null,
-    // name: null,
-    // date: null,
-    // desc: null,
-    // url: null
-  // },
-  // mutations: {
-    // setId(newID){
-      // sate.id = newID
-    // },
-    // setName(newName){
-      // state.name = newName
-    // },
-    // setDate(newDate){
-      // state.date = newDate
-    // },
-    // setDesc(newDesc){
-      // state.desc = newDesc
-    // },
-    // setURL(newUrl){
-      // state.url = newUrl
-    // }
-  // }
-// })
+const store = new Vuex.Store({
+  state: {
+    lignes: [
+      { //exemple de l'agencement des données dans les sous tableaux
+       color: null,
+       id: "Id",
+       name: "Nom",
+       date: "Créé le",
+       desc: "Description",
+       url: "Clone URL"
+      }
+    ]
+  },
+  mutations: {
+    addLigne(state, ligne)
+    {
+      state.lignes[state.lignes.length] = {
+        color: ligne.color,
+        id: ligne.id,
+        name: ligne.name,
+        date: ligne.date,
+        desc: ligne.desc,
+        url: ligne.url
+      }
+    },
+    viderTableau(state)
+    {
+      state.lignes = []
+    }
+  }
+})
 
-var agent = new Vue({
+const agent = new Vue({
   el: '#agent',
   data: {
+    store,
     nom: '',
     texte: 'J\'attend le nom de l\'agent'
   },
@@ -71,24 +77,31 @@ var agent = new Vue({
               // '<ligne id="' +response.data[i].id+ '" name="' +response.data[i].name+ '" created_at="' +response.data[i].created_at+ '" description="' +response.data[i].description+ '" clone_url="' +response.data[i].clone_url+ '"></ligne>'
             }
           })
+          .catch(function () {
+            console.log("Erreur ! Impossible d'accéder à l'API.")
+          })
         }
         else
         {
-          document.getElementById('corps').innerHTML = ""
+          this.viderTableau()
           tableau.style.display = "none"
         }
       },
       500
     ),
-    addLigne(i, id, name, created_at, description, clone_url){
-      document.getElementById('corps').innerHTML += '' +
-      '<tr class=" color' + i%2 + '">' +
-        '<td>' + id          + '</td>' +
-        '<td>' + name        + '</td>' +
-        '<td>' + created_at  + '</td>' +
-        '<td>' + description + '</td>' +
-        '<td>' + clone_url   + '</td>' +
-      '</tr>'
-    }
+    addLigne(i, newid, newname, created_at, description, clone_url){
+      var ligne = {
+        color: "color"+i%2,
+        id: newid,
+        name: newname,
+        date: created_at,
+        desc: description,
+        url: clone_url
+      }
+      store.commit('addLigne',ligne)
+    },
+    viderTableau(){
+      store.commit("viderTableau")
+    },
   }
 })

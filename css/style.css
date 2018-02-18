@@ -19,7 +19,7 @@ table
   border: 1px solid black;
 }
 
-thead, tbody, th, td
+tr, td
 {
   border: 1px solid black;
 }
