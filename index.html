@@ -18,11 +18,11 @@
       <p>{{ texte }}</p>
       <div v-if="!cacher">
         <p>Dossier(s) de {{ nom }}</p>
-        <table >
-          <tr>
+        <table>
+          <tr id="head">
             <th v-for="value in store.state.head">{{ value }}</th>
           </tr>
-          <tr v-for="(ligne, index) in store.state.lignes">
+          <tr v-for="(ligne, index) in store.state.lignes" :id="index">
             <template v-if="index%2 === 0">
               <td v-for="value in ligne" class="color0">{{ value }}</td>
             </template>
@@ -35,11 +35,11 @@
           <h4>Filtres : </h4>
           <p>
             <label for="recent">Dossiers récent : </label>
-            <input type="checkbox" name="recent">
+            <input type="checkbox" name="recent" v-on:click="recent">
           </p>
           <p>
             <label for="actif">Dossiers actifs : </label>
-            <input type="checkbox" name="actif">
+            <input type="checkbox" name="actif" v-on:click="actif">
           </p>
         </div>
       </div>
