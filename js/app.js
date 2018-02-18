@@ -12,10 +12,10 @@ const store = new Vuex.Store({
   },
   mutations: {
     addLigne(state, ligne) { // rajoute une ligne au tableau
-      var newDate = ligne.date.split("T")
+      let newDate = ligne.date.split("T")
       newDate = newDate[0].split("-")
 
-      var newMaJ = ligne.mAj.split("T")
+      let newMaJ = ligne.mAj.split("T")
       newMaJ = newMaJ[0].split("-")
 
       state.lignes[state.lignes.length] = {
@@ -54,6 +54,61 @@ const agent = new Vue({
       }
     }
   },
+  computed: {
+    nbDossiers: function(){return store.state.lignes.length}, // retourne le nombre de dossier de l'agent
+    datePresence: function(){ //retuirn la date du plus vieux dossier de l'agent
+      let dateMin = new Date()
+
+      for (let i = 0; i < store.state.lignes.length; i++) {
+        let dateCourante = store.state.lignes[i].date
+        dateCourante = dateCourante.split("/")
+        dateCourante = new Date(dateCourante[2], dateCourante[1], dateCourante[0]) // préparation de la date pour faire la comparaison
+
+        if (dateCourante.getTime() < dateMin.getTime()) {
+          dateMin = dateCourante // si la date est plus petite que la dateMin que l'on a déjà on remplace la dateMin
+        }
+      }
+      //reconversion de la date pour avoir un affichage plus lisible
+      dateMin = dateMin.toISOString().split("T")
+      dateMin = dateMin[0].split("-")
+      return dateMin[2]+"/"+dateMin[1]+"/"+dateMin[0]
+    },
+    dateRecent: function() { // retourne le dossier le plus récent
+      let dateMax = store.state.lignes[store.state.lignes.length-1].date
+      dateMax = dateMax.split("/")
+      dateMax = new Date(dateMax[2], dateMax[1], dateMax[0]) // initialisation de la date qui servira de comparaison
+
+      for (let i = store.state.lignes.length-1; i > 0; i--) {
+        let dateCourante = store.state.lignes[i].date
+        dateCourante = dateCourante.split("/")
+        dateCourante = new Date(dateCourante[2], dateCourante[1], dateCourante[0]) // préparation de la date pour faire la comparaison
+
+        if (dateCourante.getTime() > dateMax.getTime()) {
+          dateMax = dateCourante // si la date est plus grande que la dateMax que l'on a déjà on remplace la dateMax
+        }
+      }
+      //reconversion de la date pour avoir un affichage plus lisible
+      dateMax = dateMax.toISOString().split("T")
+      dateMax = dateMax[0].split("-")
+      return dateMax[2]+"/"+dateMax[1]+"/"+dateMax[0]
+    },
+    duree: function() { // retourne la différence entre la date du dosser le plsu récent et le dossier le plus vieux
+      let max = this.dateRecent.split("/") // récupération de la date max
+      let min = this.datePresence.split("/") // récupération de la date min
+
+      max = new Date(max[2], max[1], max[0])
+      min = new Date(min[2], min[1], min[0])
+
+      let duree = Math.floor(max.getTime() - min.getTime() / 1000) // recupération de la durée
+      let jours = duree/86400
+      let mois = jours/31
+      jours = jours - 31 * mois
+      let an = mois/12
+      mois = mois - 12 * mois
+
+      return an + " an(s) " + mois + " mois " + jours + " jour(s)"
+    }
+  },
   methods: {
     viderTableau(){ // cache le haut du tableau et demande au store de se netoyer
       store.commit("viderTableau")
@@ -65,14 +120,14 @@ const agent = new Vue({
       {
         if(this.nom != "") // pour éviter de faire des requête si le nom de l'agent n'est pas renseigné
         {
-          var vue = this
+          let vue = this
           axios.get("https://api.github.com/users/"+this.nom+"/repos") // la requête récupérera les dossiers de l'agent dont le nom est dans stocké dans la vue
           .then((response) =>
           {
             this.viderTableau()
             vue.cacher = false // on affiche le tableau de résultats
 
-            for(var i = 0; i < response.data.length; i ++ )
+            for(let i = 0; i < response.data.length; i ++ )
             {
               vue.addLigne( // on ajoute les infos récupérées sur l'agent ennemis dans notre magasin
                             response.data[i].id,
@@ -94,7 +149,7 @@ const agent = new Vue({
       500 // la requête se déclanchera qu'au bout de 500 millisecondes sans saisie de l'utilisateur
     ),
     addLigne(newid, newname, created_at, updated_at, description, clone_url){ // demande au magasin d'ajouter une ligne
-      var ligne = { // préparation de la ligne à ajouter
+      let ligne = { // préparation de la ligne à ajouter
         id: newid,
         name: newname,
         date: created_at,
@@ -110,13 +165,13 @@ const agent = new Vue({
       else
         this.recentCheck = true
 
-      var date = new Date();
+      let date = new Date();
 
-      for (var i = 1; i < store.state.lignes.length; i++) {
-        var temp = this.store.state.lignes[i].date.split("/")
-        var mois = parseInt(temp[1].substr(1,temp[1].length)) // récupère le mois de création du dossier
-        var an = parseInt(temp[3]) // récupère l'année de création du dossier
-        var ligne = document.getElementById(i) // récupère la ligne en cour de traitement
+      for (let i = 1; i < store.state.lignes.length; i++) {
+        let temp = this.store.state.lignes[i].date.split("/")
+        let mois = parseInt(temp[1].substr(1,temp[1].length)) // récupère le mois de création du dossier
+        let an = parseInt(temp[3]) // récupère l'année de création du dossier
+        let ligne = document.getElementById(i) // récupère la ligne en cour de traitement
 
         if (this.recentCheck) { // permet le reset de l'affichage
           ligne.classList.add("cacher") // cache la ligne
@@ -133,18 +188,18 @@ const agent = new Vue({
       else
         this.actifCheck = true
 
-      var vue = this
-      var date = new Date();
+      let vue = this
+      let date = new Date();
 
-      var an = date.getFullYear() // on récupère l'année
+      let an = date.getFullYear() // on récupère l'année
 
-      var mois
+      let mois
       if(date.getMonth() < 10) // formate le mois au format mm (donc de 01 à 12)
         mois = "0"+date.getMonth()
       else
         mois = date.getMonth()
 
-      var jour
+      let jour
       if(date.getDate() <= 7) { // on va devoir addapter le mois et éventuellement l'année
         if(date.getMonth() == 1) { // on opère la passation sur le mois précédent ET l'année précédente
           jour = 0
@@ -159,8 +214,8 @@ const agent = new Vue({
       else
         jour = date.getDate() - 7 // on récupère le jour actuel - 1 semaine
 
-      for (var i = 1; i < store.state.lignes.length; i++) {
-        var ligne = document.getElementById(i) // récupère la ligne en cour de traitement
+      for (let i = 1; i < store.state.lignes.length; i++) {
+        let ligne = document.getElementById(i) // récupère la ligne en cour de traitement
         if (vue.actifCheck) // permet le reset de l'affichage
         {
           ligne.classList.add("cacher") // cache la ligne
