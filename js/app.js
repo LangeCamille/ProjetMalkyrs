@@ -1,6 +1,32 @@
 // Vue.component('ligne', {
 //   props: ['id','name','created_at','description','clone_url'],
-//   template: '<tr><td>{{ id }}</td><td>{{ name }}</td><td>{{ created_at }}</td><td>{{ description }}</td><td>{{ clone_url }}</td></tr>'
+  // template: '<tr><td>{{ id }}</td><td>{{ name }}</td><td>{{ created_at }}</td><td>{{ description }}</td><td>{{ clone_url }}</td></tr>'
+// })
+// const dataLigne = new Vuex.store({
+  // state: {
+    // id: null,
+    // name: null,
+    // date: null,
+    // desc: null,
+    // url: null
+  // },
+  // mutations: {
+    // setId(newID){
+      // sate.id = newID
+    // },
+    // setName(newName){
+      // state.name = newName
+    // },
+    // setDate(newDate){
+      // state.date = newDate
+    // },
+    // setDesc(newDesc){
+      // state.desc = newDesc
+    // },
+    // setURL(newUrl){
+      // state.url = newUrl
+    // }
+  // }
 // })
 
 var agent = new Vue({
@@ -22,35 +48,47 @@ var agent = new Vue({
   },
   methods: {
     getData: _.debounce(
-      function() {
-        if(this.nom != "") {
+      function()
+      {
+        var tableau = document.getElementById('tableau')
+
+        if(this.nom != "")
+        {
           axios.get("https://api.github.com/users/"+this.nom+"/repos")
-          .then((response) => {
-
-            var tableau = document.getElementById('tableau')
-
-            if (tableau.style.display == "")
-            tableau.style.display = "inline-block"
+          .then((response) =>
+          {
+            if (tableau.style.display == "" || tableau.style.display == "none")
+              tableau.style.display = "inline-block"
 
             for(var i = 0; i < response.data.length; i ++ )
             {
-              document.getElementById('corps').innerHTML += '' +
-              '<tr class=" color' + i%2 + '">' +
-              '<td>' + response.data[i].id          + '</td>' +
-              '<td>' + response.data[i].name        + '</td>' +
-              '<td>' + response.data[i].created_at  + '</td>' +
-              '<td>' + response.data[i].description + '</td>' +
-              '<td>' + response.data[i].clone_url   + '</td>' +
-              '</tr>'
+              this.addLigne(i,
+                            response.data[i].id,
+                            response.data[i].name,
+                            response.data[i].created_at,
+                            response.data[i].description,
+                            response.data[i].clone_url)
               // '<ligne id="' +response.data[i].id+ '" name="' +response.data[i].name+ '" created_at="' +response.data[i].created_at+ '" description="' +response.data[i].description+ '" clone_url="' +response.data[i].clone_url+ '"></ligne>'
             }
           })
         }
         else
-        // BUG: réécrire le tableau tel qu'il est au départ
+        {
           document.getElementById('corps').innerHTML = ""
+          tableau.style.display = "none"
+        }
       },
       500
-    )
+    ),
+    addLigne(i, id, name, created_at, description, clone_url){
+      document.getElementById('corps').innerHTML += '' +
+      '<tr class=" color' + i%2 + '">' +
+        '<td>' + id          + '</td>' +
+        '<td>' + name        + '</td>' +
+        '<td>' + created_at  + '</td>' +
+        '<td>' + description + '</td>' +
+        '<td>' + clone_url   + '</td>' +
+      '</tr>'
+    }
   }
 })
