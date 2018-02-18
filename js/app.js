@@ -38,6 +38,8 @@ const agent = new Vue({
   data: {
     store,
     nom: '',
+    cacher: true,
+    ancienNom: '',
     texte: 'J\'attend le nom de l\'agent'
   },
   watch: {
@@ -52,22 +54,23 @@ const agent = new Vue({
     }
   },
   methods: {
+    viderTableau(){
+      store.commit("viderTableau")
+    },
     getData: _.debounce(
       function()
       {
-        var tableau = document.getElementById('tableau')
-
         if(this.nom != "")
         {
+          var vue = this
           axios.get("https://api.github.com/users/"+this.nom+"/repos")
           .then((response) =>
           {
-            if (tableau.style.display == "" || tableau.style.display == "none")
-              tableau.style.display = "inline-block"
+            vue.cacher = false
 
             for(var i = 0; i < response.data.length; i ++ )
             {
-              this.addLigne(
+              vue.addLigne(
                             response.data[i].id,
                             response.data[i].name,
                             response.data[i].created_at,
@@ -78,12 +81,13 @@ const agent = new Vue({
           })
           .catch(function () {
             console.log("Erreur ! Impossible d'accéder à l'API.")
+            vue.cacher = true
           })
         }
         else
         {
           this.viderTableau()
-          tableau.style.display = "none"
+          this.cacher = true
         }
       },
       500
@@ -97,9 +101,6 @@ const agent = new Vue({
         url: clone_url
       }
       store.commit('addLigne',ligne)
-    },
-    viderTableau(){
-      store.commit("viderTableau")
     },
   }
 })

@@ -17,7 +17,7 @@
       <p><input v-model="nom"/></p>
       <p>{{ texte }}</p>
       <p>Dossier(s) de {{ nom }}</p>
-      <table id="tableau">
+      <table v-if="!cacher">
         <tr>
           <th v-for="value in store.state.head">{{ value }}</th>
         </tr>
