@@ -18,8 +18,16 @@
       <p>{{ texte }}</p>
       <p>Dossier(s) de {{ nom }}</p>
       <table id="tableau">
-        <tr v-for="ligne in store.state.lignes">
-          <td v-for="value in ligne">{{ value }}</td>
+        <tr>
+          <th v-for="value in store.state.head">{{ value }}</th>
+        </tr>
+        <tr v-for="(ligne, index) in store.state.lignes">
+          <template v-if="index%2 === 0">
+            <td v-for="value in ligne" class="color0">{{ value }}</td>
+          </template>
+          <template v-else>
+            <td v-for="value in ligne" class="color1">{{ value }}</td>
+          </template>
         </tr>
       </table>
     </div>

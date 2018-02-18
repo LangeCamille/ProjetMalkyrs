@@ -5,21 +5,20 @@
 const store = new Vuex.Store({
   state: {
     lignes: [
-      { //exemple de l'agencement des données dans les sous tableaux
-       color: null,
-       id: "Id",
-       name: "Nom",
-       date: "Créé le",
-       desc: "Description",
-       url: "Clone URL"
-      }
-    ]
+      null
+    ],
+    head:[
+     "Id",
+     "Nom",
+     "Créé le",
+     "Description",
+     "Clone URL"
+   ]
   },
   mutations: {
     addLigne(state, ligne)
     {
       state.lignes[state.lignes.length] = {
-        color: ligne.color,
         id: ligne.id,
         name: ligne.name,
         date: ligne.date,
@@ -68,7 +67,7 @@ const agent = new Vue({
 
             for(var i = 0; i < response.data.length; i ++ )
             {
-              this.addLigne(i,
+              this.addLigne(
                             response.data[i].id,
                             response.data[i].name,
                             response.data[i].created_at,
@@ -89,9 +88,8 @@ const agent = new Vue({
       },
       500
     ),
-    addLigne(i, newid, newname, created_at, description, clone_url){
+    addLigne(newid, newname, created_at, description, clone_url){
       var ligne = {
-        color: "color"+i%2,
         id: newid,
         name: newname,
         date: created_at,
