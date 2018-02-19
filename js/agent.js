@@ -169,13 +169,26 @@ const agent = new Vue({
 
       for (let i = 1; i < store.state.lignes.length; i++) {
         let temp = this.store.state.lignes[i].date.split("/")
-        let mois = parseInt(temp[1].substr(1,temp[1].length)) // récupère le mois de création du dossier
-        let an = parseInt(temp[3]) // récupère l'année de création du dossier
+
+        let mois = parseInt(temp[1]) // récupère le mois de création du dossier
+
+        let an = parseInt(temp[2]) // récupère l'année de création du dossier
         let ligne = document.getElementById(i) // récupère la ligne en cour de traitement
+
+        let anTest = parseInt(date.getFullYear)
+
+        let moisTest
+        if (date.getMonth()-3 < 0) {
+          moisTest = 12 - date.getMonth()-3
+          anTest --
+        }
+        else {
+          moisTest = date.getMonth()-3
+        }
 
         if (this.recentCheck) { // permet le reset de l'affichage
           ligne.classList.add("cacher") // cache la ligne
-          if (mois >= date.getMonth()-3 && an >= parseInt(date.getFullYear)) // si le dossier est récent
+          if ((mois >= moisTest && an == anTest) || (mois <= moisTest && an > anTest)) // si le dossier est récent
             ligne.classList.remove("cacher") // affiche la ligne
         }
         else
