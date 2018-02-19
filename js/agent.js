@@ -99,12 +99,12 @@ const agent = new Vue({
       max = new Date(max[2], max[1], max[0])
       min = new Date(min[2], min[1], min[0])
 
-      let duree = Math.floor(max.getTime() - min.getTime() / 1000) // recupération de la durée
-      let jours = duree/86400
-      let mois = jours/31
-      jours = jours - 31 * mois
-      let an = mois/12
-      mois = mois - 12 * mois
+      let duree = Math.floor((max.getTime() - min.getTime()) / 1000) // recupération de la durée
+      let jours = Math.floor(duree/86400)
+      let mois = Math.floor(jours/31)
+      jours = jours - (mois*31)
+      let an = Math.floor(mois/12)
+      mois = mois - (an*12)
 
       return an + " an(s) " + mois + " mois " + jours + " jour(s)"
     }
