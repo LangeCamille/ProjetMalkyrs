@@ -3,4 +3,4 @@ Projet pour Malkyrs Studio.
 
 Il faut sauver le monde.
 
- (et faire le café au passage)
+ (et au passage, faire le café )
