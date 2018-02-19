@@ -236,6 +236,9 @@ const agent = new Vue({
       this.nom = ''
       this.viderTableau()
       this.cacher = true
+    },
+    cafe: function(){
+      javascript:window.open('./cafe.html');
     }
   }
 })
