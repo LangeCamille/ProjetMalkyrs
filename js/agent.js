@@ -10,6 +10,19 @@ const store = new Vuex.Store({
      "Clone URL"
    ]
   },
+  getters: {
+    getHead(){
+      return store.state.head
+    },
+    getLignes(){
+      if(!store.state.lignes){
+        return store.state.lignes
+      }
+      else {
+        return null
+      }
+    }
+  },
   mutations: {
     addLigne(state, ligne) { // rajoute une ligne au tableau
       let newDate = ligne.date.split("T")
@@ -31,6 +44,32 @@ const store = new Vuex.Store({
       state.lignes = []
     }
   }
+})
+
+Vue.component('tableau-ligne', {
+  props: ['datas','index'],
+  template: `
+    <tr v-if="index%2 === 0">
+      <td v-for="value in datas" class="color0">{{ value }}</td>
+    </tr>
+    <tr v-else>
+      <td v-for="value in datas" class="color1">{{ value }}</td>
+    </tr>`
+})
+Vue.component('tableau-header', {
+  props: ['values'],
+  template: `
+    <tr>
+      <th v-for="value in values">{{ value }}</th>
+    </tr>`
+})
+Vue.component('tableau-dossier', {
+  props: ['entete','donnees'],
+  template: `
+    <table>
+      <tableau-header :values="entete"></tableau-header>   
+    </table>`
+    // <tableau-ligne v-for="(ligne, i) in donnees :datas="ligne"></tableau-ligne>
 })
 
 const agent = new Vue({
