@@ -11,60 +11,6 @@
     <title>Malkyrs Surveillance</title>
   </head>
   <body>
-    <h1 id="titre">Identification des agents ennemis</h1>
-    <div id="agent">
-      <p>Saisissez le nom d'un agent</p>
-      <p>
-        <input v-model="nom"/>
-        <button type="button" v-on:click="resetNom">Reset</button>
-      </p>
-      <p>{{ texte }}</p>
-      <div v-if="!cacher">
-        <p>Dossier(s) de {{ nom }}</p>
-        <div>
-          <h4>Filtres : </h4>
-          <p>
-            <label for="recent">Dossiers récent : </label>
-            <input type="checkbox" name="recent" v-on:click="recent">
-          </p>
-          <p>
-            <label for="actif">Dossiers actifs : </label>
-            <input type="checkbox" name="actif" v-on:click="actif">
-          </p>
-        </div>
-        <!-- <table v-if="store.state.lignes.length > 0">
-          <tr id="head">
-            <th v-for="value in store.state.head">{{ value }}</th>
-          </tr>
-          <tr v-for="(ligne, index) in store.state.lignes" :id="index">
-            <template v-if="index%2 === 0">
-              <td v-for="value in ligne" class="color0">{{ value }}</td>
-            </template>
-            <template v-else>
-              <td v-for="value in ligne" class="color1">{{ value }}</td>
-            </template>
-          </tr>
-        </table> -->
-        <div v-if="store.state.lignes.length > 0">
-          <tableau-dossier :entete="store.getters.getHead" :donnees="store.getters.getLignes"></tableau-dossier>
-        </div>
-        <div>
-          <h4>Statistiques :</h4>
-          <p>
-            Nombre de dossier : {{ nbDossiers }}</br>
-            Présent depuis : {{ datePresence }}</br>
-            Dossier le plus récent : {{ dateRecent}}</br>
-            Durée de présence : {{ duree }}
-          </p>
-        </div>
-      </div>
-      <div v-else>
-        <h2>Envie d'une pause Café ? </h2>
-        <button type="button" v-on:click="cafe">
-          <img src="asset/tasse_cafe.jpg">
-        </button>
-      </div>
-    </div>
-    <script type="text/javascript" src="js/agent.js"></script>
+    <div id ="app"></div>
   </body>
 </html>
