@@ -46,7 +46,6 @@ import agent from './composants/cafe.vue'
 import agent from './composants/tableau-dossier.vue'
 
 export default {
-    el: '#agent',
     components: {
       cafe,
       tableau-dossier
@@ -72,8 +71,10 @@ export default {
       }
     },
     computed: {
-      nbDossiers: function(){return store.state.lignes.length}, // retourne le nombre de dossier de l'agent
-      datePresence: function(){ //retuirn la date du plus vieux dossier de l'agent
+      nbDossiers: function(){ // retourne le nombre de dossier de l'agent
+        return store.state.lignes.length
+      },
+      datePresence: function(){ //return la date du plus vieux dossier de l'agent
         let dateMin = new Date()
 
         for (let i = 0; i < store.state.lignes.length; i++) {
@@ -273,3 +274,9 @@ export default {
     }
 }
 </script>
+
+<style>
+  .cacher{
+    display: none;
+  }
+</style>

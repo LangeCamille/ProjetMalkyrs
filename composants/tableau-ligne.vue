@@ -21,3 +21,13 @@ export default {
   }
 }
 </script>
+
+<style>
+  .color0{
+    background-color: #b3b3cc;
+  }
+
+  .color1{
+    background-color: #e0e0eb;
+  }
+</style>

@@ -1,4 +1,4 @@
-<template>
+²<template>
   <table>
     <tr is="tableau-header"
         :values="entete"
@@ -29,3 +29,14 @@ export default {
   }
 }
 </script>
+
+<style>
+  table{
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+
+  tr, td, th{
+    border: 1px solid black;
+  }
+</style>
