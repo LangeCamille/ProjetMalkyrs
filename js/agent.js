@@ -15,7 +15,7 @@ const store = new Vuex.Store({
       return store.state.head
     },
     getLignes(){
-      if(!store.state.lignes){
+      if(store.state.lignes){
         return store.state.lignes
       }
       else {
@@ -72,13 +72,10 @@ Vue.component('tableau-dossier', {
       ></tr>
       <tr is="tableau-ligne"
           v-for="(ligne, i) in donnees"
-          :datas="ligne"
-          :index="i"
-          :key="ligne.id"
-      >blibli</tr>
-      <tr>
-        <td>test</td>
-      </tr>
+          v-bind:datas="ligne"
+          v-bind:index="i"
+          v-bind:key="ligne.id"
+      ></tr>
     </table>`
 })
 
