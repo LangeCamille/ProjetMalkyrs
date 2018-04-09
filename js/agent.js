@@ -67,9 +67,19 @@ Vue.component('tableau-dossier', {
   props: ['entete','donnees'],
   template: `
     <table>
-      <tableau-header :values="entete"></tableau-header>   
+      <tr is="tableau-header"
+          :values="entete"
+      ></tr>
+      <tr is="tableau-ligne"
+          v-for="(ligne, i) in donnees"
+          :datas="ligne"
+          :index="i"
+          :key="ligne.id"
+      >blibli</tr>
+      <tr>
+        <td>test</td>
+      </tr>
     </table>`
-    // <tableau-ligne v-for="(ligne, i) in donnees :datas="ligne"></tableau-ligne>
 })
 
 const agent = new Vue({
@@ -78,14 +88,14 @@ const agent = new Vue({
     store,
     nom: '',
     cacher: true,
-    texte: 'J\'attend le nom de l\'agent',
+    texte: `J'attend le nom de l'agent`,
     actifCheck: false,
     recentCheck: false
   },
   watch: {
     nom: function(newText, oldText) {
       if(this.nom == '')
-        this.texte = 'J\'attend le nom de l\'agent'
+        this.texte = `J'attend le nom de l'agent`
       else
       {
         this.texte = "le nom de votre agent est : " + this.nom
