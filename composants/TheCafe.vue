@@ -33,7 +33,7 @@ export default { // ça fait le café : no comments please
       }
     }
   })
-}
+};
 </script>
 
 <template>

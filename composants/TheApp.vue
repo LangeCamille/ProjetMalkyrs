@@ -1,10 +1,10 @@
 <script>
-import agent from './composants/TheAgent.vue'
+import agent from './composants/TheAgent.vue';
 
 export default {
   name: 'TheApp',
 	components: { TheAgent }
-}
+};
 </script>
 
 <template>

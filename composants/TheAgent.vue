@@ -1,6 +1,6 @@
 <script>
-import TheCafe from './composants/TheCafe.vue'
-import TableauDossier from './composants/TableauDossier.vue'
+import TheCafe from './TheCafe.vue';
+import TableauDossier from './TableauDossier.vue';
 
 export default {
   name : 'TheAgent',
@@ -230,7 +230,8 @@ export default {
       javascript:window.open('./cafe.html');
     }
   }
-}
+};
+
 </script>
 
 <template>

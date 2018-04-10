@@ -1,6 +1,6 @@
 <script>
-import TableauDossierHeader from './composants/TableauDossierHeader.vue'
-import TableauDossierLigne-ligne from './composants/TableauDossierLigne.vue'
+import TableauDossierHeader from './TableauDossierHeader.vue';
+import TableauDossierLigne-ligne from './TableauDossierLigne.vue';
 
 export default {
   name: 'TableauDossier',
@@ -18,7 +18,7 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
 <template>
