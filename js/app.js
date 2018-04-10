@@ -1,9 +1,9 @@
-import App from './composants/App.vue';
+import TheApp from './composants/TheApp.vue';
 import store from "./store";
 
 new Vue({
   el: '#app',
   store,
-  template: '<App/>',
-  components: { App }
+  template: '<TheApp/>',
+  components: { TheApp }
 });

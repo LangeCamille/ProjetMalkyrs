@@ -1,20 +1,7 @@
-<template>
-  <div id="cafe">
-    <p>Combien êtes vous ? (vous ne pourrez pas choisir les 2 options)</p>
-    <p>
-      <input type="checkbox" v-on:click="seul">Je suis seul </br>
-      <input type="checkbox" v-on:click="groupe">Nous sommes en groupe </br>
-    </p>
-    <div>
-      <img v-bind:src="link">
-    </div>
-  </div>
-</template>
-
 <script>
-
 export default { // ça fait le café : no comments please
     el: "#cafe",
+    name: 'TheCafe',
     data: () {
       return {
         link: "asset/chargement.jpg",
@@ -48,3 +35,16 @@ export default { // ça fait le café : no comments please
   })
 }
 </script>
+
+<template>
+  <div id="cafe">
+    <p>Combien êtes vous ? (vous ne pourrez pas choisir les 2 options)</p>
+    <p>
+      <input type="checkbox" v-on:click="seul">Je suis seul </br>
+      <input type="checkbox" v-on:click="groupe">Nous sommes en groupe </br>
+    </p>
+    <div>
+      <img v-bind:src="link">
+    </div>
+  </div>
+</template>
