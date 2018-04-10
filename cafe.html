@@ -6,6 +6,16 @@
     <title>Ca fait le café !</title>
   </head>
   <body>
-    <div id="cafe"></div>
+    <div id="cafe">
+      <p>Combien êtes vous ? (vous ne pourrez pas choisir les 2 options)</p>
+      <p>
+        <input type="checkbox" v-on:click="seul">Je suis seul </br>
+        <input type="checkbox" v-on:click="groupe">Nous sommes en groupe </br>
+      </p>
+      <div>
+        <img v-bind:src="link">
+      </div>
+    </div>
+    <script type="text/javascript" src="js/cafe.js"></script>
   </body>
 </html>
