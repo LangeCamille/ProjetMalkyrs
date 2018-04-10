@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import agent from './composants/cafe.vue'
-import agent from './composants/tableau-dossier.vue'
+import cafe from './composants/cafe.vue'
+import tableau-dossier from './composants/tableau-dossier.vue'
 
 export default {
     components: {

@@ -13,10 +13,14 @@
 </template>
 
 <script>
-import agent from './composants/tableau-header.vue'
-import agent from './composants/tableau-ligne.vue'
+import tableau-header from './composants/tableau-header.vue'
+import tableau-ligne from './composants/tableau-ligne.vue'
 
 export default {
+  components: {
+    tableau-header,
+    tableau-ligne
+  },
   props: {
     entete: {
       type: Array,

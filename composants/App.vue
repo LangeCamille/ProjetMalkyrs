@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 id="titre">Identification des agents ennemis</h1>
-    <div="agent"></div>
+    <agent/>
   </div>
 </template>
 
