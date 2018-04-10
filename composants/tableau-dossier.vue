@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style>
+<style type="text/css">
   table{
     border-collapse: collapse;
     border: 1px solid black;

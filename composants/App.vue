@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style type="text/css">
   h1{
     text-align: center;
   }

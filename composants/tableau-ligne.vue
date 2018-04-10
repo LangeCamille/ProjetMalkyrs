@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style type="text/css">
   .color0{
     background-color: #b3b3cc;
   }
