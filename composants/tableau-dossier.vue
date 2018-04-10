@@ -29,14 +29,3 @@ export default {
   }
 }
 </script>
-
-<style type="text/css">
-  table{
-    border-collapse: collapse;
-    border: 1px solid black;
-  }
-
-  tr, td, th{
-    border: 1px solid black;
-  }
-</style>
